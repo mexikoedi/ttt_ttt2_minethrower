@@ -36,7 +36,7 @@ SWEP.HoldType = "physgun"
 SWEP.Kind = WEAPON_EQUIP
 
 //Only detectives can buy
-SWEP.CanBuy = { ROLE_DETECTIVE }
+SWEP.CanBuy = { ROLE_DETECTIVE , ROLE_TRAITOR }
 
 SWEP.UseHands = false
 SWEP.ViewModel = "models/weapons/c_irifle.mdl"
