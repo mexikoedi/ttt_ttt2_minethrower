@@ -1,6 +1,7 @@
-AddCSLuaFile( )
+if engine.ActiveGamemode( ) != "terrortown" then return end
 
 if SERVER then
+    AddCSLuaFile( )
     resource.AddFile( "materials/vgui/ttt/weapon_minethrower.vmt" )
 end
 
