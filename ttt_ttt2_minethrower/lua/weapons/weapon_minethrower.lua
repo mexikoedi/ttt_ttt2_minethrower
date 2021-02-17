@@ -1,19 +1,19 @@
-if engine.ActiveGamemode( ) != "terrortown" then return end
+if engine.ActiveGamemode() ~= "terrortown" then return end
 
 if SERVER then
-    AddCSLuaFile( )
-    resource.AddFile( "materials/vgui/ttt/weapon_minethrower.vmt" )
+    AddCSLuaFile()
+    resource.AddFile("materials/vgui/ttt/weapon_minethrower.vmt")
 end
 
-//Metadata
+--Metadata
 SWEP.PrintName = "Minethrower"
 SWEP.Author = "mexikoedi"
 SWEP.Instructions = "Left Click fires a Combine mine"
-//Spawnable w/ spawnmenu
+--Spawnable w/ spawnmenu
 SWEP.Spawnable = true
 SWEP.AdminOnly = false
 
-//TTT Metadata
+--TTT Metadata
 if CLIENT then
     SWEP.PrintName = "Minethrower"
     SWEP.Slot = 6
@@ -22,8 +22,8 @@ if CLIENT then
     SWEP.DrawCrosshair = false
 
     SWEP.EquipMenuData = {
-        type = "item_weapon" ,
-        name = "Minethrower" ,
+        type = "item_weapon",
+        name = "Minethrower",
         desc = "Shoots out combine mines with Left Click!"
     }
 
@@ -31,13 +31,13 @@ if CLIENT then
     SWEP.IconLetter = "I"
 end
 
-//More info
+--More info
 SWEP.Base = "weapon_tttbase"
 SWEP.HoldType = "physgun"
 SWEP.Kind = WEAPON_EQUIP
 
-//Only detectives can buy
-SWEP.CanBuy = { ROLE_DETECTIVE , ROLE_TRAITOR }
+--Only detectives can buy
+SWEP.CanBuy = {ROLE_DETECTIVE, ROLE_TRAITOR}
 
 SWEP.UseHands = false
 SWEP.ViewModel = "models/weapons/c_irifle.mdl"
@@ -50,40 +50,40 @@ SWEP.Primary.Delay = 5.0
 SWEP.LimitedStock = true
 SWEP.NoSights = true
 
-function SWEP:PrimaryAttack( )
-    //Checks whether there is any ammo left.
-    if ( self:Clip1( ) > 0 ) then
-        self:SetNextPrimaryFire( CurTime( ) + 0.5 )
-        if ( CLIENT ) then return end
-        local ent = ents.Create( "combine_mine" )
-        if ( !IsValid( ent ) ) then return end
+function SWEP:PrimaryAttack()
+    --Checks whether there is any ammo left.
+    if (self:Clip1() > 0) then
+        self:SetNextPrimaryFire(CurTime() + 0.5)
+        if (CLIENT) then return end
+        local ent = ents.Create("combine_mine")
+        if (not IsValid(ent)) then return end
         ent.origin = "weapon_minethrower"
-        ent:SetPos( self:GetOwner( ):EyePos( ) + ( self:GetOwner( ):GetAimVector( ) * 30 ) )
-        ent:SetAngles( self:GetOwner( ):EyeAngles( ) )
-        ent:SetOwner( self:GetOwner( ) )
-        ent:SetPhysicsAttacker( self:GetOwner( ) )
-        ent:Spawn( )
-        local phys = ent:GetPhysicsObject( )
+        ent:SetPos(self:GetOwner():EyePos() + (self:GetOwner():GetAimVector() * 30))
+        ent:SetAngles(self:GetOwner():EyeAngles())
+        ent:SetOwner(self:GetOwner())
+        ent:SetPhysicsAttacker(self:GetOwner())
+        ent:Spawn()
+        local phys = ent:GetPhysicsObject()
 
-        if ( !IsValid( phys ) ) then
-            ent:Remove( )
+        if (not IsValid(phys)) then
+            ent:Remove()
 
             return
         end
 
-        local velocity = self:GetOwner( ):GetAimVector( )
+        local velocity = self:GetOwner():GetAimVector()
         velocity = velocity * 7000
-        phys:ApplyForceCenter( velocity )
-        self:TakePrimaryAmmo( 1 )
-        self:SetNextPrimaryFire( CurTime( ) + 0.5 )
+        phys:ApplyForceCenter(velocity)
+        self:TakePrimaryAmmo(1)
+        self:SetNextPrimaryFire(CurTime() + 0.5)
     end
 end
 
 if SERVER then
-    hook.Add( "EntityTakeDamage" , "TTT2MineThrowerDamage" , function( target , dmginfo )
-        if ( target:IsPlayer( ) && dmginfo:IsExplosionDamage( ) && dmginfo:GetAttacker( ):GetClass( ) == "combine_mine" && dmginfo:GetAttacker( ).origin == "weapon_minethrower" ) then
-            dmginfo:SetInflictor( ents.Create( "weapon_minethrower" ) )
-            dmginfo:SetAttacker( dmginfo:GetAttacker( ):GetOwner( ) )
+    hook.Add("EntityTakeDamage", "TTT2MineThrowerDamage", function(target, dmginfo)
+        if (target:IsPlayer() and dmginfo:IsExplosionDamage() and dmginfo:GetAttacker():GetClass() == "combine_mine" and dmginfo:GetAttacker().origin == "weapon_minethrower") then
+            dmginfo:SetInflictor(ents.Create("weapon_minethrower"))
+            dmginfo:SetAttacker(dmginfo:GetAttacker():GetOwner())
         end
-    end )
+    end)
 end
