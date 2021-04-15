@@ -36,7 +36,7 @@ SWEP.Base = "weapon_tttbase"
 SWEP.HoldType = "physgun"
 SWEP.Kind = WEAPON_EQUIP
 
---Only detectives can buy
+--Detectives and Traitors can buy it
 SWEP.CanBuy = {ROLE_DETECTIVE, ROLE_TRAITOR}
 
 SWEP.UseHands = false
