@@ -57,7 +57,7 @@ function SWEP:PrimaryAttack()
         if (CLIENT) then return end
         local ent = ents.Create("combine_mine")
         if (not IsValid(ent)) then return end
-        ent.origin = "weapon_minethrower"
+        ent.origin = "weapon_ttt_ttt2_minethrower"
         ent:SetPos(self:GetOwner():EyePos() + (self:GetOwner():GetAimVector() * 30))
         ent:SetAngles(self:GetOwner():EyeAngles())
         ent:SetOwner(self:GetOwner())
@@ -81,8 +81,8 @@ end
 
 if SERVER then
     hook.Add("EntityTakeDamage", "TTT2MineThrowerDamage", function(target, dmginfo)
-        if (target:IsPlayer() and dmginfo:IsExplosionDamage() and dmginfo:GetAttacker():GetClass() == "combine_mine" and dmginfo:GetAttacker().origin == "weapon_minethrower") then
-            dmginfo:SetInflictor(ents.Create("weapon_minethrower"))
+        if (target:IsPlayer() and dmginfo:IsExplosionDamage() and dmginfo:GetAttacker():GetClass() == "combine_mine" and dmginfo:GetAttacker().origin == "weapon_ttt_ttt2_minethrower") then
+            dmginfo:SetInflictor(ents.Create("weapon_ttt_ttt2_minethrower"))
             dmginfo:SetAttacker(dmginfo:GetAttacker():GetOwner())
         end
     end)
