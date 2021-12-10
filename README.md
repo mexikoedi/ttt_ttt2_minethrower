@@ -1,6 +1,6 @@
-# TTT_TTT2_Minethrower
+# ttt_ttt2_minethrower
 
-TTT_TTT2_Minethrower Addon for Garry's Mod.
+ttt_ttt2_minethrower addon for Garry's Mod.
 
 More information are available here: 
 https://steamcommunity.com/sharedfiles/filedetails/?id=2031288866

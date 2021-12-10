@@ -1,8 +1,11 @@
 {
-    "title": "TTT/TTT2 Minethrower",
+    "title": "[TTT|2] Minethrower [WEAPON]",
     "type": "weapon",
-    "tags": "fun",
-    "description": "Left Click fires a Combine mine",
+    "tags": [
+        "realism",
+        "fun"
+    ],
+    "description": "Shoot out combine mines with left click!",
     "ignore": [
         "*.psd",
         "*.vcproj",
