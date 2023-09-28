@@ -8,7 +8,7 @@ end
 SWEP.PrintName = "Minethrower"
 SWEP.Author = "mexikoedi"
 SWEP.Contact = "Steam"
-SWEP.Instructions = "Left click fires a combine mine into the distance while right click places a combine mine near you."
+SWEP.Instructions = "Primary attack fires a combine mine into the distance while secondary attack places a combine mine near you."
 SWEP.Purpose = "Shoot mines to create traps for your enemies."
 SWEP.Spawnable = false
 SWEP.AdminOnly = false
@@ -23,7 +23,7 @@ if CLIENT then
     SWEP.EquipMenuData = {
         type = "item_weapon",
         name = "Minethrower",
-        desc = "Shoot combine mines into the distance with left click!\n\nPlace combine mines near you with right click!"
+        desc = "Shoot combine mines into the distance with primary attack!\n\nPlace combine mines near you with secondary attack!"
     }
 
     SWEP.Icon = "vgui/ttt/weapon_minethrower"
