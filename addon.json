@@ -5,7 +5,7 @@
         "realism",
         "fun"
     ],
-    "description": "Shoot out combine mines with left click!",
+    "description": "Shoot combine mines into the distance with left click!\n\nPlace combine mines near you with right click!",
     "ignore": [
         "*.psd",
         "*.vcproj",

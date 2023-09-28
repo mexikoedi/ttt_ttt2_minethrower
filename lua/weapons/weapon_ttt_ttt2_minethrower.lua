@@ -8,7 +8,7 @@ end
 SWEP.PrintName = "Minethrower"
 SWEP.Author = "mexikoedi"
 SWEP.Contact = "Steam"
-SWEP.Instructions = "Left click fires a combine mine."
+SWEP.Instructions = "Left click fires a combine mine into the distance while right click places a combine mine near you."
 SWEP.Purpose = "Shoot mines to create traps for your enemies."
 SWEP.Spawnable = false
 SWEP.AdminOnly = false
@@ -23,7 +23,7 @@ if CLIENT then
     SWEP.EquipMenuData = {
         type = "item_weapon",
         name = "Minethrower",
-        desc = "Shoot out combine mines with left click!"
+        desc = "Shoot combine mines into the distance with left click!\n\nPlace combine mines near you with right click!"
     }
 
     SWEP.Icon = "vgui/ttt/weapon_minethrower"
@@ -43,7 +43,10 @@ SWEP.Primary.ClipSize = 2
 SWEP.Primary.DefaultClip = 2
 SWEP.Primary.Automatic = false
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 5.0
+SWEP.Primary.Delay = 1
+SWEP.Secondary.Automatic = false
+SWEP.Secondary.Ammo = "none"
+SWEP.Secondary.Delay = 0.5
 SWEP.LimitedStock = true
 SWEP.NoSights = true
 SWEP.AllowDrop = true
@@ -51,7 +54,6 @@ SWEP.AutoSpawnable = false
 
 function SWEP:PrimaryAttack()
     if self:Clip1() > 0 then
-        self:SetNextPrimaryFire(CurTime() + 0.5)
         if CLIENT then return end
         local ent = ents.Create("combine_mine")
         if not IsValid(ent) then return end
@@ -73,7 +75,33 @@ function SWEP:PrimaryAttack()
         velocity = velocity * 7000
         phys:ApplyForceCenter(velocity)
         self:TakePrimaryAmmo(1)
-        self:SetNextPrimaryFire(CurTime() + 0.5)
+        self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+    end
+end
+
+function SWEP:SecondaryAttack()
+    if self:Clip1() > 0 then
+        if CLIENT then return end
+        local ent = ents.Create("combine_mine")
+        if not IsValid(ent) then return end
+        ent.origin = "weapon_ttt_ttt2_minethrower"
+        ent:SetPos(self:GetOwner():EyePos() + self:GetOwner():GetAimVector() * 30)
+        ent:SetAngles(self:GetOwner():EyeAngles())
+        ent:SetOwner(self:GetOwner())
+        ent:SetPhysicsAttacker(self:GetOwner())
+        ent:Spawn()
+        local phys = ent:GetPhysicsObject()
+
+        if not IsValid(phys) then
+            ent:Remove()
+
+            return
+        end
+
+        local velocity = self:GetOwner():GetAimVector()
+        phys:ApplyForceCenter(velocity)
+        self:TakePrimaryAmmo(1)
+        self:SetNextSecondaryFire(CurTime() + self.Secondary.Delay)
     end
 end
 
