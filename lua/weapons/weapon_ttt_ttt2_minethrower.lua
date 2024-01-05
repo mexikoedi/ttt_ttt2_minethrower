@@ -1,5 +1,4 @@
 if engine.ActiveGamemode() ~= "terrortown" then return end
-
 if SERVER then
     AddCSLuaFile()
     resource.AddFile("materials/vgui/ttt/weapon_minethrower.vmt")
@@ -13,13 +12,11 @@ SWEP.Purpose = "Shoot mines to create traps for your enemies."
 SWEP.Spawnable = false
 SWEP.AdminOnly = false
 SWEP.AdminSpawnable = false
-
 if CLIENT then
     SWEP.Slot = 6
     SWEP.ViewModelFlip = false
     SWEP.ViewModelFOV = 60
     SWEP.DrawCrosshair = false
-
     SWEP.EquipMenuData = {
         type = "item_weapon",
         name = "Minethrower",
@@ -33,9 +30,7 @@ end
 SWEP.Base = "weapon_tttbase"
 SWEP.HoldType = "physgun"
 SWEP.Kind = WEAPON_EQUIP
-
 SWEP.CanBuy = {ROLE_DETECTIVE, ROLE_TRAITOR}
-
 SWEP.UseHands = false
 SWEP.ViewModel = "models/weapons/c_irifle.mdl"
 SWEP.WorldModel = "models/weapons/w_IRifle.mdl"
@@ -51,7 +46,6 @@ SWEP.LimitedStock = true
 SWEP.NoSights = true
 SWEP.AllowDrop = true
 SWEP.AutoSpawnable = false
-
 function SWEP:PrimaryAttack()
     if self:Clip1() > 0 then
         if CLIENT then return end
@@ -64,10 +58,8 @@ function SWEP:PrimaryAttack()
         ent:SetPhysicsAttacker(self:GetOwner())
         ent:Spawn()
         local phys = ent:GetPhysicsObject()
-
         if not IsValid(phys) then
             ent:Remove()
-
             return
         end
 
@@ -91,10 +83,8 @@ function SWEP:SecondaryAttack()
         ent:SetPhysicsAttacker(self:GetOwner())
         ent:Spawn()
         local phys = ent:GetPhysicsObject()
-
         if not IsValid(phys) then
             ent:Remove()
-
             return
         end
 
