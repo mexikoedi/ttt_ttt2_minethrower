@@ -49,49 +49,67 @@ SWEP.AutoSpawnable = false
 function SWEP:PrimaryAttack()
     if self:Clip1() > 0 then
         if CLIENT then return end
+        local owner = self:GetOwner()
+        if not IsValid(owner) then return end
+        owner:LagCompensation(true)
         local ent = ents.Create("combine_mine")
-        if not IsValid(ent) then return end
+        if not IsValid(ent) then
+            owner:LagCompensation(false)
+            return
+        end
+
         ent.origin = "weapon_ttt_ttt2_minethrower"
-        ent:SetPos(self:GetOwner():EyePos() + self:GetOwner():GetAimVector() * 30)
-        ent:SetAngles(self:GetOwner():EyeAngles())
-        ent:SetOwner(self:GetOwner())
-        ent:SetPhysicsAttacker(self:GetOwner())
+        ent:SetPos(owner:EyePos() + owner:GetAimVector() * 30)
+        ent:SetAngles(owner:EyeAngles())
+        ent:SetOwner(owner)
+        ent:SetPhysicsAttacker(owner)
         ent:Spawn()
         local phys = ent:GetPhysicsObject()
         if not IsValid(phys) then
             ent:Remove()
+            owner:LagCompensation(false)
             return
         end
 
-        local velocity = self:GetOwner():GetAimVector()
+        local velocity = owner:GetAimVector()
         velocity = velocity * 7000
         phys:ApplyForceCenter(velocity)
         self:TakePrimaryAmmo(1)
         self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+        owner:LagCompensation(false)
     end
 end
 
 function SWEP:SecondaryAttack()
     if self:Clip1() > 0 then
         if CLIENT then return end
+        local owner = self:GetOwner()
+        if not IsValid(owner) then return end
+        owner:LagCompensation(true)
         local ent = ents.Create("combine_mine")
-        if not IsValid(ent) then return end
+        if not IsValid(ent) then
+            owner:LagCompensation(false)
+            return
+        end
+
         ent.origin = "weapon_ttt_ttt2_minethrower"
-        ent:SetPos(self:GetOwner():EyePos() + self:GetOwner():GetAimVector() * 30)
-        ent:SetAngles(self:GetOwner():EyeAngles())
-        ent:SetOwner(self:GetOwner())
-        ent:SetPhysicsAttacker(self:GetOwner())
+        ent:SetPos(owner:EyePos() + owner:GetAimVector() * 30)
+        ent:SetAngles(owner:EyeAngles())
+        ent:SetOwner(owner)
+        ent:SetPhysicsAttacker(owner)
         ent:Spawn()
         local phys = ent:GetPhysicsObject()
         if not IsValid(phys) then
             ent:Remove()
+            owner:LagCompensation(false)
             return
         end
 
-        local velocity = self:GetOwner():GetAimVector()
+        local velocity = owner:GetAimVector()
         phys:ApplyForceCenter(velocity)
         self:TakePrimaryAmmo(1)
         self:SetNextSecondaryFire(CurTime() + self.Secondary.Delay)
+        owner:LagCompensation(false)
     end
 end
 
