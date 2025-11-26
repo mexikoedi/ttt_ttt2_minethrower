@@ -17,6 +17,9 @@ jobs:
 
     # GitHub token permissions
     permissions:
+      security-events: write
+      packages: read
+      actions: read
       contents: read
 
     steps:
